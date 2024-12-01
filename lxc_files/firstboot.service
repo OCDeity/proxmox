@@ -1,0 +1,13 @@
+[Unit]
+Description=One-Time Execution Service
+ConditionPathExists=!/var/lib/runonce
+Before=sshd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/firstboot.sh
+ExecStartPost=/usr/bin/touch /var/lib/runonce
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
